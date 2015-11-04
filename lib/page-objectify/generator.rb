@@ -1,15 +1,11 @@
 require "nokogiri"
+require "page-objectify/config"
 require "page-objectify/dom_to_ruby"
 
 module PageObjectify
   class Generator
-    def initialize(page:, base:, file:)
-      @page = page
-      @base = base
-      @file = file
-      fail "@page must be a String! @page=#{@page.inspect}" unless @page.is_a?(String)
-      fail "@base must be a String! @base=#{@base.inspect}" unless @base.is_a?(String)
-      fail "@file must end with '.rb'! @file=#{@file.inspect}" unless @file.end_with?(".rb")
+    def initialize(**config)
+      @config = Config.new(**config)
 
       @nodes = []
     end
@@ -28,17 +24,19 @@ module PageObjectify
       PageObjectify.logger.debug "First node: #{@nodes.first.to_s.chomp}"
       PageObjectify.logger.debug "Total nodes: #{@nodes.count}"
 
-      @code = dom_to_ruby(@nodes)
+      @code = dom_to_ruby
 
-      PageObjectify.logger.debug "Generated: #{@code}"
+      PageObjectify.logger.debug "** BEGIN GENERATED CODE **"
+      @code.each_line { |line| PageObjectify.logger.debug line.chomp }
+      PageObjectify.logger.debug "** END GENERATED CODE **"
 
-      File.open(@file, 'w') { |file| file.write(@code) }
+      File.open(@config.file, 'w') { |file| file.write(@code) }
     end
 
     private
 
-    def dom_to_ruby(nodes)
-      @dom_to_ruby ||= DOMToRuby.new(nodes).unparse
+    def dom_to_ruby
+      @dom_to_ruby ||= DOMToRuby.new(@nodes, @config).unparse
     end
 
     def parse_current_page

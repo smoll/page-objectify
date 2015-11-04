@@ -1,5 +1,6 @@
 require "unparser"
 require "page-objectify/ast_maker"
+require "page-objectify/config"
 
 module PageObjectify
   # Takes an Array of DOM nodes (Nokogiri::XML::Element objects)
@@ -7,15 +8,16 @@ module PageObjectify
   class DOMToRuby
     include ASTMaker
 
-    def initialize(array)
+    def initialize(array, config)
       @array = array
+      @config = config
     end
 
     # Generate Ruby source as a String
     def unparse
-      # TODO: replace this with real stuff
+      # TODO: fix this
       node = s(:class,
-        s(:const, nil, :GooglePage)
+        s(:const, nil, @config.page.to_sym)
       )
       Unparser.unparse(node)
     end
