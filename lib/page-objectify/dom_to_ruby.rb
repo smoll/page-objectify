@@ -3,19 +3,13 @@ require "page-objectify/ast_maker"
 require "page-objectify/config"
 
 module PageObjectify
-  # Takes an Array of DOM nodes (Nokogiri::XML::Element objects)
+  # Takes an Array of DOM elements
   # and generates Ruby code (page class containing PageObject::Accessors)
   class DOMToRuby
     include ASTMaker
 
-    # TODO: leverage PageObject to get this mapping programmatically?
-    TAG_TO_ACCESSOR = {
-      "a" => "link",
-      "button" => "button"
-    }
-
-    def initialize(array, config)
-      @array = array
+    def initialize(dom, config)
+      @dom = dom
       @config = config
     end
 
@@ -41,23 +35,18 @@ module PageObjectify
     # button(:cancel, id: "cancel")
     def accessors
       res = []
-      @array.each do |element|
-        res << s(:send, nil, accessor_for(element.name).to_sym,
-          s(:sym, element.attributes["id"].to_s.to_sym),
+      @dom.to_accessors.each do |element|
+        res << s(:send, nil, element[:accessor].to_sym,
+          s(:sym, element[:id].to_sym),
           s(:hash,
             s(:pair,
               s(:sym, :id),
-              s(:str, element.attributes["id"].to_s)
+              s(:str, element[:id])
             )
           )
         )
       end
       res
-    end
-
-    def accessor_for(tag)
-      fail "Tag #{tag} is not supported! This may be a bug in the PageObjectify gem, please report it! :)" unless TAG_TO_ACCESSOR.has_key?(tag)
-      TAG_TO_ACCESSOR[tag]
     end
   end
 end
