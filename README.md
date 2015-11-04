@@ -32,11 +32,9 @@ require "watir-webdriver"
 class GooglePageGenerator < PageObjectify::Generator
   def generate
     @browser = Watir::Browser.new :chrome
-    @base = "BasePage"
-    @class = "GooglePage"
     @browser.goto "www.google.com"
     # TODO: write a #wait_for_ajax helper
-    sleep 3
+    sleep 1
     generate!
   ensure
     @browser.quit
@@ -50,8 +48,12 @@ require "generators/google_page_generator"
 
 namespace :po do
   task :generate do
-  	GooglePageGenerator.new.generate
-  	# and any other pages you want to generate programmatically
+    GooglePageGenerator.new(
+      page: "GooglePage",
+      base: "BasePage",
+      file: "google_page.rb"
+    ).generate
+    # and any other pages you want to generate programmatically
   end
 end
 ```
