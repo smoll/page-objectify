@@ -5,7 +5,7 @@ require 'page-object/generator/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "page-object-generator"
-  spec.version       = Page::Object::Generator::VERSION
+  spec.version       = PageObject::Generator::VERSION
   spec.authors       = ["Shujon Mollah"]
   spec.email         = ["mollah@gmail.com"]
 
