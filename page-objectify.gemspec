@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'page-object/generator/version'
+require 'page-objectify/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "page-object-generator"
-  spec.version       = PageObject::Generator::VERSION
+  spec.name          = "page-objectify"
+  spec.version       = PageObjectify::VERSION
   spec.authors       = ["Shujon Mollah"]
   spec.email         = ["mollah@gmail.com"]
 
