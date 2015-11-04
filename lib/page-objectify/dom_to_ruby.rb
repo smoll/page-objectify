@@ -16,10 +16,11 @@ module PageObjectify
     # Generate Ruby source as a String
     def unparse
       # TODO: fix this
-      node = s(:class,
-        s(:const, nil, @config.page)
+      tree = s(:class,
+        s(:const, nil, @config.page),
+        s(:const, nil, @config.base)
       )
-      Unparser.unparse(node)
+      Unparser.unparse(tree)
     end
   end
 end
