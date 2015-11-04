@@ -26,6 +26,7 @@ module PageObjectify
     def parse_current_page
       fail "@browser variable must be a Watir::Browser instance! @browser=#{@browser.inspect}" unless @browser.is_a?(Watir::Browser)
       fail "Cannot get current page HTML!" unless @browser.respond_to?(:html)
+      PageObjectify.logger.info "About to parse HTML! Current URL: #{@browser.url}"
       @doc = Nokogiri::HTML(@browser.html)
       @dom = DOM.new(@doc)
     end

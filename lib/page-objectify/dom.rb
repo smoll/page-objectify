@@ -19,6 +19,7 @@ module PageObjectify
         accessor = accessor_for(node)
         @accessors << { accessor: accessor, id: node.attributes["id"].to_s } if accessor
       end
+      PageObjectify.logger.info "DOM nodes convertable to PageObject::Accessors: #{@accessors.count}"
       @accessors
     end
 
