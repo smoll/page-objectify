@@ -15,18 +15,9 @@ module PageObjectify
 
     # Generate Ruby source as a String
     def unparse
-      # TODO: fix this
       tree = s(:class,
         *first_line,
-        s(:send, nil, :link,
-          s(:sym, :abc),
-          s(:hash,
-            s(:pair,
-              s(:sym, :id),
-              s(:str, "abc")
-            )
-          )
-        )
+        s(:begin, *accessors)
       )
       Unparser.unparse(tree)
     end
@@ -37,6 +28,25 @@ module PageObjectify
     # "GeneratedPage < BasePage"
     def first_line
       [s(:const, nil, @config.page), s(:const, nil, @config.base)]
+    end
+
+    # Array of AST nodes, which represent lines that look like:
+    # button(:submit, id: "submit")
+    # button(:cancel, id: "cancel")
+    def accessors
+      res = []
+      @array.each do |element|
+        res << s(:send, nil, :link,
+          s(:sym, element.attributes["id"].to_s.to_sym),
+          s(:hash,
+            s(:pair,
+              s(:sym, :id),
+              s(:str, element.attributes["id"].to_s)
+            )
+          )
+        )
+      end
+      res
     end
   end
 end
