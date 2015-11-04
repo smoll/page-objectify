@@ -17,7 +17,7 @@ module PageObjectify
     def unparse
       # TODO: fix this
       node = s(:class,
-        s(:const, nil, @config.page.to_sym)
+        s(:const, nil, @config.page)
       )
       Unparser.unparse(node)
     end
