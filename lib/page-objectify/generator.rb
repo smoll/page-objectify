@@ -1,4 +1,5 @@
 require "nokogiri"
+require "page-objectify/dom_to_ruby"
 
 module PageObjectify
   class Generator
@@ -14,7 +15,7 @@ module PageObjectify
     end
 
     def generate!
-      after_navigation
+      parse_current_page
 
       # Grab all nodes with non-empty HTML id
       @doc.xpath("//*[@id!='']").each do |node|
@@ -25,16 +26,22 @@ module PageObjectify
       end
 
       PageObjectify.logger.debug "First node: #{@nodes.first.to_s.chomp}"
-      PageObjectify.logger.debug "TOTAL NODES FOUND: #{@nodes.count}"
+      PageObjectify.logger.debug "Total nodes: #{@nodes.count}"
 
-      # TODO: write to @ast, extract it out to its own class
+      @code = dom_to_ruby(@nodes)
 
-      # TODO: write @ast to disk, based on @file path specified
+      PageObjectify.logger.debug "Generated: #{@code}"
+
+      File.open(@file, 'w') { |file| file.write(@code) }
     end
 
     private
 
-    def after_navigation
+    def dom_to_ruby(nodes)
+      @dom_to_ruby ||= DOMToRuby.new(nodes).unparse
+    end
+
+    def parse_current_page
       fail "@browser variable must be a Watir::Browser instance! @browser=#{@browser.inspect}" unless @browser.is_a?(Watir::Browser)
       fail "Cannot get current page HTML!" unless @browser.respond_to?(:html)
       @doc = Nokogiri::HTML(@browser.html)
