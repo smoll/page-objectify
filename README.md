@@ -25,6 +25,12 @@ The supported usage of this gem is to:
 Here's a complete example:
 
 ```ruby
+# Gemfile
+gem 'page-objectify'
+gem 'watir-webdriver', '~> 0.9.1'
+```
+
+```ruby
 # /generators/google_page_generator.rb
 require "page-objectify/generator"
 require "watir-webdriver"
@@ -58,7 +64,7 @@ namespace :po do
 end
 ```
 
-Then, upon executing the rake task `$ rake po:generate`, the following file will be generated:
+Then, upon executing the rake task `$ bundle exec rake po:generate`, the following file will be generated:
 
 ```ruby
 class GooglePage < BasePage
