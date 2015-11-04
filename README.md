@@ -58,12 +58,15 @@ namespace :po do
 end
 ```
 
-Then, upon executing the rake task `$ rake po:generate`, the following file will be generated (TODO!):
+Then, upon executing the rake task `$ rake po:generate`, the following file will be generated:
 
 ```ruby
 class GooglePage < BasePage
-  link(:xyz, id: 'xyz')
-  button(:abc, id: 'abc')
+  div(:viewport, id: "viewport")
+  div(:"doc-info", id: "doc-info")
+  div(:cst, id: "cst")
+  text_area(:csi, id: "csi")
+  div(:searchform, id: "searchform")
   # etc.
 end
 ```
