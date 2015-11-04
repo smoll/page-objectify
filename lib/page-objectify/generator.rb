@@ -16,16 +16,13 @@ module PageObjectify
       # Grab all nodes with non-empty HTML id
       @doc.xpath("//*[@id!='']").each do |node|
 
-        # TODO: filter out nodes there is no PO accessor for!
+        # TODO: filter out nodes for which there is no PO accessor!
 
         @node_count += 1
       end
 
-      # TODO: change puts to logger output
-      puts "-" * 14
-      puts "First node structure: #{@doc.xpath("//*[@id!='']").first}"
-      puts "TOTAL NODES FOUND: #{@node_count}"
-      puts "-" * 14
+      PageObjectify.logger.debug "First node: #{@doc.xpath("//*[@id!='']").first.to_s.chomp}"
+      PageObjectify.logger.debug "TOTAL NODES FOUND: #{@node_count}"
 
       # TODO: write to @ast, extract it out to its own class
 
