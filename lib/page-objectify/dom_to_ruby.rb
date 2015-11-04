@@ -17,10 +17,26 @@ module PageObjectify
     def unparse
       # TODO: fix this
       tree = s(:class,
-        s(:const, nil, @config.page),
-        s(:const, nil, @config.base)
+        *first_line,
+        s(:send, nil, :link,
+          s(:sym, :abc),
+          s(:hash,
+            s(:pair,
+              s(:sym, :id),
+              s(:str, "abc")
+            )
+          )
+        )
       )
       Unparser.unparse(tree)
+    end
+
+    private
+
+    # Array of Parser::AST::Nodes, which represents the line:
+    # "GeneratedPage < BasePage"
+    def first_line
+      [s(:const, nil, @config.page), s(:const, nil, @config.base)]
     end
   end
 end
