@@ -8,6 +8,9 @@ module PageObjectify
       @file = file
       fail "@page must be a String! @page=#{@page.inspect}" unless @page.is_a?(String)
       fail "@base must be a String! @base=#{@base.inspect}" unless @base.is_a?(String)
+      fail "@file must end with '.rb'! @file=#{@file.inspect}" unless @file.end_with?(".rb")
+
+      @nodes = []
     end
 
     def generate!
@@ -17,12 +20,12 @@ module PageObjectify
       @doc.xpath("//*[@id!='']").each do |node|
 
         # TODO: filter out nodes for which there is no PO accessor!
-
-        @node_count += 1
+        # Currently, all this does is only take links
+        @nodes << node if node.name == "a"
       end
 
-      PageObjectify.logger.debug "First node: #{@doc.xpath("//*[@id!='']").first.to_s.chomp}"
-      PageObjectify.logger.debug "TOTAL NODES FOUND: #{@node_count}"
+      PageObjectify.logger.debug "First node: #{@nodes.first.to_s.chomp}"
+      PageObjectify.logger.debug "TOTAL NODES FOUND: #{@nodes.count}"
 
       # TODO: write to @ast, extract it out to its own class
 
@@ -35,7 +38,6 @@ module PageObjectify
       fail "@browser variable must be a Watir::Browser instance! @browser=#{@browser.inspect}" unless @browser.is_a?(Watir::Browser)
       fail "Cannot get current page HTML!" unless @browser.respond_to?(:html)
       @doc = Nokogiri::HTML(@browser.html)
-      @node_count = 0
     end
   end
 end
