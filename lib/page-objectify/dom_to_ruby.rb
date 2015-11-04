@@ -8,6 +8,12 @@ module PageObjectify
   class DOMToRuby
     include ASTMaker
 
+    # TODO: leverage PageObject to get this mapping programmatically?
+    TAG_TO_ACCESSOR = {
+      "a" => "link",
+      "button" => "button"
+    }
+
     def initialize(array, config)
       @array = array
       @config = config
@@ -36,7 +42,7 @@ module PageObjectify
     def accessors
       res = []
       @array.each do |element|
-        res << s(:send, nil, :link,
+        res << s(:send, nil, accessor_for(element.name).to_sym,
           s(:sym, element.attributes["id"].to_s.to_sym),
           s(:hash,
             s(:pair,
@@ -47,6 +53,11 @@ module PageObjectify
         )
       end
       res
+    end
+
+    def accessor_for(tag)
+      fail "Tag #{tag} is not supported! This may be a bug in the PageObjectify gem, please report it! :)" unless TAG_TO_ACCESSOR.has_key?(tag)
+      TAG_TO_ACCESSOR[tag]
     end
   end
 end
