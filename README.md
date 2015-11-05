@@ -9,8 +9,8 @@ A Ruby page class generator (for use with the page-object gem)
 Ensure this gem and watir-webdriver are both in your Gemfile:
 
 ```ruby
-gem 'page-objectify'
-gem 'watir-webdriver'
+gem "page-objectify"
+gem "watir-webdriver"
 ```
 
 And then execute:
@@ -82,6 +82,8 @@ end
 ```
 
 Currently, only those HTML elements with a **non-empty id attribute** will have PageObject accessors generated for them.
+
+For another example (using watir-webdriver and phantomjs via the `phantomjs` gem), see [this integration test](features/generator.feature).
 
 ## Debugging & Development
 
