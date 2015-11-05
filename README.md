@@ -28,13 +28,13 @@ Here's a complete example:
 
 ```ruby
 # Gemfile
+gem "chromedriver-helper", "~> 1.0"
 gem "page-objectify"
 gem "watir-webdriver", "~> 0.9.1"
 ```
 
 ```ruby
 # /generators/google_page_generator.rb
-require "page-objectify"
 require "page-objectify/generator"
 require "watir-webdriver"
 
@@ -88,7 +88,7 @@ Currently, only those HTML elements with a **non-empty id attribute** will have 
 The default log level is `2`. Set this to a lower level to see helpful DEBUG level prints, i.e.
 
 ```ruby
-PageObjectify.logger.level = 0
+PageObjectify::Logging.logger.level = 0
 ```
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
