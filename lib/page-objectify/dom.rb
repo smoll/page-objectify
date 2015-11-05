@@ -1,7 +1,10 @@
 require "page-object"
+require "page-objectify/logging"
 
 module PageObjectify
   class DOM
+    include Logging
+
     def initialize(doc)
       @doc = doc
       @accessors = []
@@ -19,7 +22,7 @@ module PageObjectify
         accessor = accessor_for(node)
         @accessors << { accessor: accessor, id: node.attributes["id"].to_s } if accessor
       end
-      PageObjectify.logger.info "DOM nodes convertable to PageObject::Accessors: #{@accessors.count}"
+      logger.info "DOM nodes convertable to PageObject::Accessors: #{@accessors.count}"
       @accessors
     end
 
@@ -30,7 +33,7 @@ module PageObjectify
       tag = node.name.to_sym
 
       unless supported?(tag)
-        PageObjectify.logger.warn "Tag #{tag} is not supported! This may be a bug in the PageObjectify gem, please report it! :)" unless ignored?(tag)
+        logger.warn "Tag #{tag} is not supported! This may be a bug in the PageObjectify gem, please report it! :)" unless ignored?(tag)
         return nil
       end
 

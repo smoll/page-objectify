@@ -3,7 +3,6 @@ Feature: generate
   Scenario: from fake page
     Given a file named "fake_page_generator.rb" with:
     """ruby
-    require "page-objectify"
     require "page-objectify/generator"
     require "phantomjs"
     require "watir-webdriver"
