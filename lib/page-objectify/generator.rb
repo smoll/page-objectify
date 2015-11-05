@@ -6,7 +6,7 @@ require "page-objectify/dom_to_ruby"
 module PageObjectify
   class Generator
     def initialize(**config)
-      @config = Config.new(**config)
+      @config = Config.new(generator_class: self.class.to_s, **config)
     end
 
     def generate!
