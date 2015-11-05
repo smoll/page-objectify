@@ -1,5 +1,7 @@
 # page-objectify
 
+[![Build Status](https://travis-ci.org/smoll/page-objectify.svg)](https://travis-ci.org/smoll/page-objectify)
+
 A Ruby page class generator (for use with the page-object gem)
 
 ## Installation
