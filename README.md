@@ -2,7 +2,15 @@
 
 [![Build Status](https://travis-ci.org/smoll/page-objectify.svg)](https://travis-ci.org/smoll/page-objectify)
 
-A Ruby page class generator (for use with the page-object gem)
+A Ruby [page class](https://github.com/cheezy/page-object/wiki/Get-me-started-right-now!#describe-your-page) generator (for use with the page-object gem)
+
+## Why?
+
+Normally, I’d advise against using a gem like this, because the page class shouldn't necessarily contain methods for every single HTML element on the page. In fact, if the page we are modeling is anything like the Google home page, our page class should only have one or 2 methods (a.k.a. [PageObject::Accessors](http://www.rubydoc.info/github/cheezy/page-object/PageObject/Accessors)) for HTML elements: the search box and the submit button.
+
+However, recently, almost all of the tests I have been writing have been for non-public facing sites, used by specialized, internal users who are trained on the platform. As a result, we end up with fairly dense webpages, with multiple different features and HTML elements that need interacting with, all on a single page.
+
+Ultimately, this is the specific use case I am writing this gem for. Also, I wanted to learn a bit more about how a Ruby AST -- abstract syntax tree -- works and how the unparser gem allows me to generate working Ruby code from a dynamically generated AST.
 
 ## Installation
 
@@ -24,7 +32,7 @@ The supported usage of this gem is to:
 * write a SomethingPageGenerator#generate method that navigates to the page you want to generate a page class for, before it calls #generate!
 * initialize the generator class in some kind of Rake task (that is typically executed manually.)
 
-Here's a complete example:
+Here's a complete example (using the Google homepage, which, as I mention above, is a [horrible use case](#why), but it works for a demo):
 
 ```ruby
 # Gemfile

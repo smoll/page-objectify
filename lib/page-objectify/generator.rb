@@ -13,9 +13,10 @@ module PageObjectify
     end
 
     def generate!
-      parse_current_page
+      execute_runtime_checks
 
-      @code = DOMToRuby.new(@dom, @config).unparse
+      doc = Nokogiri::HTML(@browser.html)
+      @code = DOMToRuby.new(DOM.new(doc), @config).unparse
 
       logger.debug "** BEGIN GENERATED CODE **"
       @code.each_line { |line| logger.debug line.chomp }
@@ -26,12 +27,10 @@ module PageObjectify
 
     private
 
-    def parse_current_page
+    def execute_runtime_checks
       fail "@browser variable must be a Watir::Browser instance! @browser=#{@browser.inspect}" unless @browser.is_a?(Watir::Browser)
       fail "Cannot get current page HTML!" unless @browser.respond_to?(:html)
       logger.info "About to parse HTML! Current URL: #{@browser.url}"
-      @doc = Nokogiri::HTML(@browser.html)
-      @dom = DOM.new(@doc)
     end
   end
 end
