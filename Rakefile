@@ -6,4 +6,15 @@ begin
 rescue LoadError
 end
 
-task test: :spec
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new do |t|
+  t.cucumber_opts = ""
+  t.cucumber_opts << "--format pretty"
+end
+
+Cucumber::Rake::Task.new(:cucumber_wip) do |t|
+  t.cucumber_opts = "-p wip"
+end
+
+task test: [:spec, :cucumber]
