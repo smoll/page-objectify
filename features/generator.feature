@@ -8,11 +8,11 @@ Feature: generate
     require "watir-webdriver"
 
     class FakePageGenerator < PageObjectify::Generator
-      def generate
+      def generate!
         Selenium::WebDriver::PhantomJS.path = Phantomjs.path
         @browser = Watir::Browser.new :phantomjs
         @browser.goto 'data:text/html,<h1 id="heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="firstname" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="lastname" value="Mouse"><br><br><input type="submit" id="submit" value="Submit"></form>'
-        generate!
+        super
       ensure
         @browser.quit
       end
@@ -23,7 +23,7 @@ Feature: generate
     require_relative "fake_page_generator"
 
     task :fake do
-      FakePageGenerator.new.generate
+      FakePageGenerator.new.generate!
     end
     """
     When I run `rake fake`
