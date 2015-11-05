@@ -26,12 +26,13 @@ Here's a complete example:
 
 ```ruby
 # Gemfile
-gem 'page-objectify'
-gem 'watir-webdriver', '~> 0.9.1'
+gem "page-objectify"
+gem "watir-webdriver", "~> 0.9.1"
 ```
 
 ```ruby
 # /generators/google_page_generator.rb
+require "page-objectify"
 require "page-objectify/generator"
 require "watir-webdriver"
 
