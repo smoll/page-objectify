@@ -18,3 +18,4 @@ Cucumber::Rake::Task.new(:cucumber_wip) do |t|
 end
 
 task test: [:spec, :cucumber]
+task default: :test

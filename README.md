@@ -29,8 +29,8 @@ And then execute:
 
 The supported usage of this gem is to:
 * create a `SomethingPageGenerator` class that inherits from `PageObjectify::Generator`
-* write a SomethingPageGenerator#generate! method that navigates to the page you want to generate a page class for, before it calls `super`
-* initialize the generator class in some kind of Rake task (that is typically executed manually.)
+* write a `SomethingPageGenerator#visit` method that opens a browser and navigates to the page you want to generate a page class for.
+* initialize the generator class & call `#generate!` in some kind of Rake task (that is typically executed manually.)
 
 Here's a complete example (using the Google homepage, which, as I mention above, is a [horrible use case](#why), but it works for a demo):
 
@@ -52,14 +52,11 @@ class GooglePageGenerator < PageObjectify::Generator
     super(file: "path/to/pages-dir/google_page.rb")
   end
 
-  def generate!
+  def visit
     @browser = Watir::Browser.new :chrome
     @browser.goto "www.google.com"
     # TODO: write a #wait_for_ajax helper
     sleep 1
-    super
-  ensure
-    @browser.quit
   end
 end
 ```

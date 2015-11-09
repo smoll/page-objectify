@@ -1,4 +1,29 @@
-Feature: generate
+Feature: generate page class
+
+  Scenario: invalid generator
+    Given a file named "invalid_generator.rb" with:
+    """ruby
+    require "page-objectify/generator"
+    require "phantomjs"
+    require "watir-webdriver"
+
+    class InvalidGenerator < PageObjectify::Generator
+      # because we didn't create a #visit method
+    end
+    """
+    And a file named "Rakefile" with:
+    """ruby
+    require_relative "invalid_generator"
+
+    task :invalid do
+      InvalidGenerator.new.generate!
+    end
+    """
+    When I run `rake invalid`
+    Then the output should contain:
+    """
+    The #visit method does not exist! Please implement it!
+    """
 
   Scenario: from fake page
     Given a file named "fake_page_generator.rb" with:
@@ -8,13 +33,10 @@ Feature: generate
     require "watir-webdriver"
 
     class FakePageGenerator < PageObjectify::Generator
-      def generate!
+      def visit
         Selenium::WebDriver::PhantomJS.path = Phantomjs.path
         @browser = Watir::Browser.new :phantomjs
         @browser.goto 'data:text/html,<h1 id="heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="firstname" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="lastname" value="Mouse"><br><br><input type="submit" id="submit" value="Submit"></form>'
-        super
-      ensure
-        @browser.quit
       end
     end
     """
