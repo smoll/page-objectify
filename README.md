@@ -12,6 +12,10 @@ However, recently, almost all of the tests I have been writing have been for non
 
 Ultimately, this is the specific use case I am writing this gem for. Also, I wanted to learn a bit more about how a Ruby AST -- abstract syntax tree -- works and how the unparser gem allows me to generate working Ruby code from a dynamically generated AST.
 
+## Changes
+
+This gem will follow semantic versioning. See [changelog](./CHANGELOG.md) for changes in each version.
+
 ## Installation
 
 Ensure this gem and watir-webdriver are both in your Gemfile:
