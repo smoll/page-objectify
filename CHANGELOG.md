@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.0.3](https://github.com/smoll/page-objectify/tree/v0.0.3) (2015-11-10)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.2...v0.0.3)
+
+**Fixed bugs:**
+
+- Generator raises NameError: uninitialized constant PageObjectify::VERSION when writing timestamped code comment [\#8](https://github.com/smoll/page-objectify/issues/8)
+
 ## [v0.0.2](https://github.com/smoll/page-objectify/tree/v0.0.2) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.1...v0.0.2)
 
