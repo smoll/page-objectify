@@ -62,3 +62,40 @@ Feature: generate page class
       button(:submit, id: "submit")
     end
     """
+
+  @mockjax
+  Scenario: page with mock AJAX
+    Given a file named "mockjax_page_generator.rb" with:
+    """ruby
+    require "page-objectify/generator"
+    require "phantomjs"
+    require "watir-webdriver"
+
+    class MockjaxPageGenerator < PageObjectify::Generator
+      def visit
+        Selenium::WebDriver::PhantomJS.path = Phantomjs.path
+        @browser = Watir::Browser.new :phantomjs
+        @browser.goto "http://localhost:3001" # See fixtures/mockjax/start.rb
+        wait_for_ajax # See fixtures/mockjax/index.html, 1500 ms delay on AJAX
+      end
+    end
+    """
+    And a file named "Rakefile" with:
+    """ruby
+    require_relative "mockjax_page_generator"
+
+    task :mockjax do
+      MockjaxPageGenerator.new.generate!
+    end
+    """
+    When I run `rake mockjax`
+    Then the output should not contain:
+    """
+    rake aborted!
+    """
+    Then the file "mockjax_page.rb" should contain:
+    """
+    class MockjaxPage < BasePage
+      div(:content, id: "content")
+    end
+    """
