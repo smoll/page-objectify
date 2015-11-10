@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.0.4](https://github.com/smoll/page-objectify/tree/v0.0.4) (2015-11-10)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.3...v0.0.4)
+
+**Merged pull requests:**
+
+- Add URL at time of generation to comment & newline at EOF [\#9](https://github.com/smoll/page-objectify/pull/9) ([smoll](https://github.com/smoll))
+
 ## [v0.0.3](https://github.com/smoll/page-objectify/tree/v0.0.3) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.2...v0.0.3)
 
