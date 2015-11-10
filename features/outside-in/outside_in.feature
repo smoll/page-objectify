@@ -26,7 +26,7 @@ Feature: outside-in
       def visit
         Selenium::WebDriver::PhantomJS.path = Phantomjs.path
         @browser = Watir::Browser.new :phantomjs
-        @browser.goto 'data:text/html,<h1 id="heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="firstname" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="lastname" value="Mouse"><br><br><input type="submit" id="submit" value="Submit"></form>'
+        @browser.goto 'data:text/html,<h1 id="heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="firstname" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="lastname" value="Mouse"><br><br><input type="submit" id="submit-it" value="Submit"></form>'
       end
     end
     """
@@ -56,6 +56,6 @@ Feature: outside-in
       heading(:heading, id: "heading")
       text_field(:firstname, id: "firstname")
       text_field(:lastname, id: "lastname")
-      button(:submit, id: "submit")
+      button(:submit_it, id: "submit-it")
     end
     """

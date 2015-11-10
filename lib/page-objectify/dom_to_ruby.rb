@@ -37,7 +37,7 @@ module PageObjectify
       res = []
       @dom.to_accessors.each do |element|
         res << s(:send, nil, element[:accessor].to_sym,
-          s(:sym, element[:id].to_sym),
+          s(:sym, element[:id].gsub("-", "_").to_sym), # Can't have dashes in method names!
           s(:hash,
             s(:pair,
               s(:sym, :id),
