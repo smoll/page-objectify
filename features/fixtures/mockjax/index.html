@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery example</title>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="jquery.mockjax-1.6.2.min.js"></script>
+    <script>
+    $.mockjax({
+      url: '/api/beer/random',
+      responseTime: 1500,
+      responseText: {
+       success        : true
+       ,beerName       : 'Sam Adams'
+     }
+    });
+
+    $.getJSON('/api/beer/random', function(resp){
+     var html = (resp.success) ? 'Your random beer is ' + resp.beerName : 'No beer today';
+     $('#content').html(html);
+    });
+    </script>
+  </head>
+<body>
+  <div id="content"></div>
+</body>
+</html>

@@ -59,8 +59,7 @@ class GooglePageGenerator < PageObjectify::Generator
   def visit
     @browser = Watir::Browser.new :chrome
     @browser.goto "www.google.com"
-    # TODO: write a #wait_for_ajax helper
-    sleep 1
+    sleep 1 # Use `wait_for_ajax` instead of `sleep`, if jQuery is available on the page!
   end
 end
 ```
