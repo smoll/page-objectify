@@ -1,12 +1,13 @@
 module PageObjectify
   class Config
-    attr_reader :page, :base, :file
+    attr_reader :generator_class, :page, :base, :file
 
     def initialize(**keywords)
-      truncated = keywords[:generator_class].chomp("Generator")
-      @page = keywords[:page] || truncated
+      @generator_class = keywords[:generator_class] # => "GooglePageGenerator"
+      truncated = @generator_class.chomp("Generator")
+      @page = keywords[:page] || truncated # => "GooglePage"
       @base = keywords[:base] || "BasePage"
-      @file = keywords[:file] || "#{underscorize(truncated)}.rb"
+      @file = keywords[:file] || "#{underscorize(truncated)}.rb" # => google_page.rb
       validate_configs
     end
 
