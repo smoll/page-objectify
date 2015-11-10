@@ -3,6 +3,7 @@ require "page-objectify/config"
 require "page-objectify/dom"
 require "page-objectify/dom_to_ruby"
 require "page-objectify/logging"
+require "page-objectify/version"
 
 module PageObjectify
   class Generator

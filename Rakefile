@@ -17,6 +17,12 @@ Cucumber::Rake::Task.new(:cucumber_wip, "Run @wip Cucumber features, fail if any
   t.cucumber_opts = "-p wip"
 end
 
+Cucumber::Rake::Task.new(:outie, "Run outie test(s) alone, faster feedback locally") do |t|
+  t.cucumber_opts = ""
+  t.cucumber_opts << "--format pretty"
+  t.cucumber_opts << "features/outside-in"
+end
+
 # Manually verify CHANGELOG.md before pushing
 task :changelog do
   sh "github_changelog_generator smoll/page-objectify"
