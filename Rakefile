@@ -17,5 +17,9 @@ Cucumber::Rake::Task.new(:cucumber_wip) do |t|
   t.cucumber_opts = "-p wip"
 end
 
+task :changelog do
+  sh "github_changelog_generator smoll/page-objectify"
+end
+
 task test: [:spec, :cucumber]
 task default: :test
