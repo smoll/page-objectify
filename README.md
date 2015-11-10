@@ -51,11 +51,6 @@ require "page-objectify/generator"
 require "watir-webdriver"
 
 class GooglePageGenerator < PageObjectify::Generator
-  # Overriding the constructor here is optional
-  def initialize
-    super(file: "path/to/pages-dir/google_page.rb")
-  end
-
   def visit
     @browser = Watir::Browser.new :chrome
     @browser.goto "www.google.com"
@@ -68,15 +63,16 @@ end
 # Rakefile
 require "generators/google_page_generator"
 
-namespace :po do
-  task :generate do
-    GooglePageGenerator.new.generate!
+namespace :generate do
+  task :po do
+    # Specifying file path is optional
+    GooglePageGenerator.new(file: "path/to/pages-dir/google_page.rb").generate!
     # and any other pages you want to generate programmatically
   end
 end
 ```
 
-Then, upon executing the rake task `$ bundle exec rake po:generate`, the following file will be generated:
+Then, upon executing the rake task `$ bundle exec rake generate:po`, the following file will be generated:
 
 ```ruby
 class GooglePage < BasePage
