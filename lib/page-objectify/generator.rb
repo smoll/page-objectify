@@ -38,6 +38,21 @@ module PageObjectify
       @browser.quit
     end
 
+    # Wait until the number of pending AJAX requests drops to zero. Assumes
+    # jQuery is available on the page; behavior is undefined if it's not.
+    #
+    # Raises Watir::Wait::TimeoutError exception if timeout is exceeded.
+    # Raises Selenium::WebDriver::Error::UnknownError: { "errorMessage":"Can't find variable: jQuery", ... } if jQuery is not loaded on page.
+    def wait_for_ajax(timeout = 3, interval = 0.5)
+      require "watir-webdriver/wait" unless defined?(Watir)
+      (timeout / interval).to_i.times do
+        return true if @browser.execute_script('return jQuery.active').to_i == 0
+        sleep interval
+      end
+
+      raise Watir::Wait::TimeoutError, "Timeout of #{timeout} seconds exceeded on waiting for Ajax."
+    end
+
     private
 
     def execute_runtime_checks
