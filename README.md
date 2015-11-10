@@ -87,7 +87,7 @@ end
 
 Currently, only those HTML elements with a **non-empty id attribute** will have PageObject accessors generated for them.
 
-For another example (using watir-webdriver and phantomjs via the `phantomjs` gem), see [this integration test](features/generator.feature).
+For another example (using watir-webdriver and phantomjs via the `phantomjs` gem), see [this integration test](features/generate_page_class.feature).
 
 ## Debugging & Development
 
