@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.0.6](https://github.com/smoll/page-objectify/tree/v0.0.6) (2015-11-11)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.5...v0.0.6)
+
+**Implemented enhancements:**
+
+- Allow user to configure mapping of HTML ids to PO accessor names [\#11](https://github.com/smoll/page-objectify/issues/11)
+
+**Merged pull requests:**
+
+- Allow configurable HTML id to PO method name mapping [\#12](https://github.com/smoll/page-objectify/pull/12) ([smoll](https://github.com/smoll))
+
 ## [v0.0.5](https://github.com/smoll/page-objectify/tree/v0.0.5) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.4...v0.0.5)
 
