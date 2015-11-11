@@ -1,5 +1,8 @@
 # Change Log
 
+## [v0.0.8](https://github.com/smoll/page-objectify/tree/v0.0.8) (2015-11-11)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.7...v0.0.8)
+
 ## [v0.0.7](https://github.com/smoll/page-objectify/tree/v0.0.7) (2015-11-11)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.6...v0.0.7)
 
