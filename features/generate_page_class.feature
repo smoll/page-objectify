@@ -70,7 +70,7 @@ Feature: generate page class
       heading(:heading, id: "heading")
       text_field(:firstname, id: "firstname")
       text_field(:lastname, id: "lastname")
-      button(:submit_it, id: "submit-it")
+      button(:submitit, id: "submit-it")
     end
     """
 
@@ -108,5 +108,51 @@ Feature: generate page class
     """
     class MockjaxPage < BasePage
       div(:content, id: "content")
+    end
+    """
+
+  @announce-output
+  Scenario: with mapping
+    Given a file named "mapping_page_generator.rb" with:
+    """ruby
+    require "page-objectify/generator"
+    require "phantomjs"
+    require "watir-webdriver"
+
+    class MappingPageGenerator < PageObjectify::Generator
+      def visit
+        Selenium::WebDriver::PhantomJS.path = Phantomjs.path
+        @browser = Watir::Browser.new :phantomjs
+        @browser.goto 'data:text/html,<h1 id="1Heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="first-name" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="last:name" value="Mouse"><br><br><input type="submit" id="Submit" value="Submit"></form>'
+      end
+    end
+    """
+    And a file named "Rakefile" with:
+    """ruby
+    require_relative "mapping_page_generator"
+
+    MAPPING = { /^(\d+)/ => 'x_\1', "-" => "_", ":" => "_" }
+
+    task :mapping do
+      MappingPageGenerator.new(method_name_mapping: MAPPING).generate!
+    end
+    """
+    When I run `rake mapping`
+    Then the output should not contain:
+    """
+    rake aborted!
+    """
+    # Expected behavior:
+    # 1) regex mapping prepends leading number with "x_"
+    # 2) string mapping converts dashes to underscores
+    # 3) string mapping converts colons to underscores
+    # 4) downcase without needing mapping for that
+    And the file "mapping_page.rb" should contain:
+    """
+    class MappingPage < BasePage
+      heading(:x_1heading, id: "1Heading")
+      text_field(:first_name, id: "first-name")
+      text_field(:last_name, id: "last:name")
+      button(:submit, id: "Submit")
     end
     """

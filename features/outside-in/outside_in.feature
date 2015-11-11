@@ -56,6 +56,6 @@ Feature: outside-in
       heading(:heading, id: "heading")
       text_field(:firstname, id: "firstname")
       text_field(:lastname, id: "lastname")
-      button(:submit_it, id: "submit-it")
+      button(:submitit, id: "submit-it")
     end
     """

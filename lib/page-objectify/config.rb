@@ -1,6 +1,6 @@
 module PageObjectify
   class Config
-    attr_reader :generator_class, :page, :base, :file
+    attr_reader :generator_class, :page, :base, :file, :method_name_mapping
 
     def initialize(**keywords)
       @generator_class = keywords[:generator_class] # => "GooglePageGenerator"
@@ -8,6 +8,7 @@ module PageObjectify
       @page = keywords[:page] || truncated # => "GooglePage"
       @base = keywords[:base] || "BasePage"
       @file = keywords[:file] || "#{underscorize(truncated)}.rb" # => google_page.rb
+      @method_name_mapping = keywords[:method_name_mapping] || []
       validate_configs
     end
 
