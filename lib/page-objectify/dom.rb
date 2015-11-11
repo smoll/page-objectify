@@ -1,3 +1,4 @@
+require "nokogiri"
 require "page-object"
 require "page-objectify/logging"
 
@@ -5,13 +6,14 @@ module PageObjectify
   class DOM
     include Logging
 
-    def initialize(doc)
-      @doc = doc
+    def initialize(html)
+      @html = html
+      @doc = Nokogiri::HTML(@html)
       @accessors = []
       @tags_to_accessors = {}
       @input_types_to_accessors = {}
       @types = %i(text password checkbox button image reset submit radio hidden file)
-      @ignored_tags = %i(meta style body) # that could possibly have an HTML id
+      @ignored_tags = %i(meta style body script) # that could possibly have an HTML id
 
       generate_mapping
     end
@@ -72,6 +74,12 @@ module PageObjectify
 
       # Fix for <input type="button"> and <button> duping each other
       @tags_to_accessors[:button] = "button"
+
+      # Fix for https://github.com/smoll/page-objectify/issues/13
+      [:h1, :h2, :h3, :h4, :h5].each { |k| @tags_to_accessors[k] = k.to_s }
+
+      logger.debug "TAGS_TO_ACCESSORS = #{@tags_to_accessors}"
+      logger.debug "TYPES_TO_ACCESSORS = #{@input_types_to_accessors}"
     end
   end
 end

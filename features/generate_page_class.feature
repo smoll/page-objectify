@@ -67,7 +67,7 @@ Feature: generate page class
     # Note that changes to the underlying page that this page class is modeling, or
     # new versions of PageObjectify, may require this file to be generated again.
     class FakePage < BasePage
-      heading(:heading, id: "heading")
+      h1(:heading, id: "heading")
       text_field(:firstname, id: "firstname")
       text_field(:lastname, id: "lastname")
       button(:submitit, id: "submit-it")
@@ -150,7 +150,7 @@ Feature: generate page class
     And the file "mapping_page.rb" should contain:
     """
     class MappingPage < BasePage
-      heading(:x_1heading, id: "1Heading")
+      h1(:x_1heading, id: "1Heading")
       text_field(:first_name, id: "first-name")
       text_field(:last_name, id: "last:name")
       button(:submit, id: "Submit")
