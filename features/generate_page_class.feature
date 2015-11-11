@@ -123,7 +123,7 @@ Feature: generate page class
       def visit
         Selenium::WebDriver::PhantomJS.path = Phantomjs.path
         @browser = Watir::Browser.new :phantomjs
-        @browser.goto 'data:text/html,<h1 id="1Heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="first-name" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="last:name" value="Mouse"><br><br><input type="submit" id="Submit" value="Submit"></form>'
+        @browser.goto 'data:text/html,<h1 id="1Heading">Hello World</h1><form action="action_page.php">First name:<br><input type="text" name="firstname" id="first-name-ok" value="Mickey"><br>Last name:<br><input type="text" name="lastname" id="last:name" value="Mouse"><br><br><input type="submit" id="Submit" value="Submit"></form>'
       end
     end
     """
@@ -151,7 +151,7 @@ Feature: generate page class
     """
     class MappingPage < BasePage
       h1(:x_1heading, id: "1Heading")
-      text_field(:first_name, id: "first-name")
+      text_field(:first_name_ok, id: "first-name-ok")
       text_field(:last_name, id: "last:name")
       button(:submit, id: "Submit")
     end

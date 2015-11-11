@@ -39,7 +39,7 @@ module PageObjectify
       res = []
       @dom.to_accessors.each do |element|
         method_name = element[:id].downcase # because HTML ids are case-insensitive
-        @config.method_name_mapping.each { |k,v| method_name.sub!(k, v) }
+        @config.method_name_mapping.each { |k,v| method_name.gsub!(k, v) }
         unless valid_method_name?(method_name)
           logger.warn "Final method name #{method_name} is not a valid Ruby method name! Stripping non-alpha characters as a last resort!"
           strip_non_alpha_or_underscore!(method_name)
