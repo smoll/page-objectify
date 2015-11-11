@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.0.7](https://github.com/smoll/page-objectify/tree/v0.0.7) (2015-11-11)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.6...v0.0.7)
+
+**Fixed bugs:**
+
+- heading is not a valid PO accessor [\#13](https://github.com/smoll/page-objectify/issues/13)
+- Don't try to generate accessors for invalid tags, and write tests for it [\#2](https://github.com/smoll/page-objectify/issues/2)
+
+**Merged pull requests:**
+
+- Fix a few DOM to accessor bugs & write tests [\#14](https://github.com/smoll/page-objectify/pull/14) ([smoll](https://github.com/smoll))
+
 ## [v0.0.6](https://github.com/smoll/page-objectify/tree/v0.0.6) (2015-11-11)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.5...v0.0.6)
 
