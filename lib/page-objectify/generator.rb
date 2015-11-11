@@ -1,4 +1,3 @@
-require "nokogiri"
 require "page-objectify/config"
 require "page-objectify/dom"
 require "page-objectify/dom_to_ruby"
@@ -24,8 +23,7 @@ module PageObjectify
       @url_at_generation = @browser.url
       logger.info "About to parse HTML! Current URL: #{@url_at_generation}"
 
-      doc = Nokogiri::HTML(@browser.html)
-      @code = DOMToRuby.new(DOM.new(doc), @config).unparse
+      @code = DOMToRuby.new(DOM.new(@browser.html), @config).unparse
 
       logger.debug "** BEGIN GENERATED CODE **"
       @code.each_line { |line| logger.debug line.chomp }

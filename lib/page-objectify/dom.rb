@@ -1,3 +1,4 @@
+require "nokogiri"
 require "page-object"
 require "page-objectify/logging"
 
@@ -5,8 +6,9 @@ module PageObjectify
   class DOM
     include Logging
 
-    def initialize(doc)
-      @doc = doc
+    def initialize(html)
+      @html = html
+      @doc = Nokogiri::HTML(@html)
       @accessors = []
       @tags_to_accessors = {}
       @input_types_to_accessors = {}
