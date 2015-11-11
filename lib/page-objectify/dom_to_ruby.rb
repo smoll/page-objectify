@@ -55,7 +55,8 @@ module PageObjectify
           )
         )
       end
-      res
+      sorted = res.sort_by { |node| node.children[2].children[0] } # sort on HTML id
+      sorted
     end
 
     def valid_method_name?(s)
