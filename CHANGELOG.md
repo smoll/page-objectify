@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.0.9](https://github.com/smoll/page-objectify/tree/v0.0.9) (2015-11-11)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.8...v0.0.9)
+
+**Fixed bugs:**
+
+- \[Bug\] Several invalid accessor methods: heading, table\_cell, bold, table\_row, option, check\_box [\#16](https://github.com/smoll/page-objectify/issues/16)
+- Add tbody and thead to list of ignored tags [\#15](https://github.com/smoll/page-objectify/issues/15)
+
 ## [v0.0.8](https://github.com/smoll/page-objectify/tree/v0.0.8) (2015-11-11)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.7...v0.0.8)
 
@@ -28,10 +36,6 @@
 
 ## [v0.0.5](https://github.com/smoll/page-objectify/tree/v0.0.5) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.4...v0.0.5)
-
-**Fixed bugs:**
-
-- HTML id with dashes should be converted into valid PO accessor method names [\#10](https://github.com/smoll/page-objectify/issues/10)
 
 ## [v0.0.4](https://github.com/smoll/page-objectify/tree/v0.0.4) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.3...v0.0.4)
