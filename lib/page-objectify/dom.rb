@@ -13,7 +13,7 @@ module PageObjectify
       @tags_to_accessors = {}
       @input_types_to_accessors = {}
       @types = %i(text password checkbox button image reset submit radio hidden file)
-      @ignored_tags = %i(meta style body) # that could possibly have an HTML id
+      @ignored_tags = %i(meta style body script) # that could possibly have an HTML id
 
       generate_mapping
     end
