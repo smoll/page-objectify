@@ -6,6 +6,8 @@ module PageObjectify
   class DOM
     include Logging
 
+    attr_reader :tags_to_accessors, :input_types_to_accessors
+
     def initialize(html)
       @html = html
       @doc = Nokogiri::HTML(@html)
@@ -76,7 +78,15 @@ module PageObjectify
       @tags_to_accessors[:button] = "button"
 
       # Fix for https://github.com/smoll/page-objectify/issues/13
-      [:h1, :h2, :h3, :h4, :h5].each { |k| @tags_to_accessors[k] = k.to_s }
+      [:h1, :h2, :h3, :h4, :h5, :h6].each { |k| @tags_to_accessors[k] = k.to_s }
+
+      # Fix for https://github.com/smoll/page-objectify/issues/16
+      @tags_to_accessors[:td] = "cell"
+      @tags_to_accessors[:th] = "cell"
+      @tags_to_accessors[:b] = "b"
+      @tags_to_accessors.delete(:tr)
+      @tags_to_accessors.delete(:option)
+      @input_types_to_accessors[:checkbox] = "checkbox"
 
       logger.debug "TAGS_TO_ACCESSORS = #{@tags_to_accessors}"
       logger.debug "TYPES_TO_ACCESSORS = #{@input_types_to_accessors}"
