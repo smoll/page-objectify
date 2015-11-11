@@ -1,12 +1,14 @@
 require "unparser"
 require "page-objectify/ast_maker"
 require "page-objectify/config"
+require "page-objectify/logging"
 
 module PageObjectify
   # Takes an Array of DOM elements
   # and generates Ruby code (page class containing PageObject::Accessors)
   class DOMToRuby
     include ASTMaker
+    include Logging
 
     def initialize(dom, config)
       @dom = dom
@@ -36,8 +38,15 @@ module PageObjectify
     def accessors
       res = []
       @dom.to_accessors.each do |element|
+        method_name = element[:id].downcase # because HTML ids are case-insensitive
+        @config.method_name_mapping.each { |k,v| method_name.sub!(k, v) }
+        unless valid_method_name?(method_name)
+          logger.warn "Final method name #{method_name} is not a valid Ruby method name! Stripping non-alpha characters as a last resort!"
+          strip_non_alpha_or_underscore!(method_name)
+        end
+
         res << s(:send, nil, element[:accessor].to_sym,
-          s(:sym, element[:id].gsub("-", "_").to_sym), # Can't have dashes in method names!
+          s(:sym, method_name.to_sym),
           s(:hash,
             s(:pair,
               s(:sym, :id),
@@ -47,6 +56,15 @@ module PageObjectify
         )
       end
       res
+    end
+
+    def valid_method_name?(s)
+      # From http://stackoverflow.com/a/4379197
+      !!(/\A(?:[a-z_]\w*[?!=]?|\[\]=?|<<|>>|\*\*|[!~+\*\/%&^|-]|[<>]=?|<=>|={2,3}|![=~]|=~)\z/i =~ s)
+    end
+
+    def strip_non_alpha_or_underscore!(m)
+      m.gsub!(/[^a-z_]/, '')
     end
   end
 end
