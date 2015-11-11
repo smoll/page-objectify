@@ -53,7 +53,7 @@ Feature: outside-in
     # Note that changes to the underlying page that this page class is modeling, or
     # new versions of PageObjectify, may require this file to be generated again.
     class OutiePage < BasePage
-      heading(:heading, id: "heading")
+      h1(:heading, id: "heading")
       text_field(:firstname, id: "firstname")
       text_field(:lastname, id: "lastname")
       button(:submitit, id: "submit-it")
