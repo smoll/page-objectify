@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.0.10](https://github.com/smoll/page-objectify/tree/v0.0.10) (2015-11-11)
+[Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.9...v0.0.10)
+
+**Implemented enhancements:**
+
+- PO accessors should sort alphabetically on method name [\#17](https://github.com/smoll/page-objectify/issues/17)
+
 ## [v0.0.9](https://github.com/smoll/page-objectify/tree/v0.0.9) (2015-11-11)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.8...v0.0.9)
 
@@ -36,6 +43,10 @@
 
 ## [v0.0.5](https://github.com/smoll/page-objectify/tree/v0.0.5) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.4...v0.0.5)
+
+**Fixed bugs:**
+
+- HTML id with dashes should be converted into valid PO accessor method names [\#10](https://github.com/smoll/page-objectify/issues/10)
 
 ## [v0.0.4](https://github.com/smoll/page-objectify/tree/v0.0.4) (2015-11-10)
 [Full Changelog](https://github.com/smoll/page-objectify/compare/v0.0.3...v0.0.4)
